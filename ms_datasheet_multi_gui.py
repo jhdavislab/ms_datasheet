@@ -1,8 +1,17 @@
+###################################
+#Tool to plot thermo raw files
+#to QC proteomics injections
+#Joey Davis
+#jhdavislab.com
+#jhdavis@mit.edu
+###################################
 import ms_datasheet
 import glob
 from matplotlib import cm
 from gooey import GooeyParser
 from gooey import Gooey
+
+__VERSION__="0.1.0"
 
 @Gooey(default_size=(610, 610))
 def main():
@@ -26,13 +35,20 @@ def main():
     tic_rt_range = vars(args)['tic_rt_range']
 
     all_files = glob.glob(directory+'/*.raw')
-    print('analyzing the following files:')
+    
+    print('****to do the same from the commandline, run the following:')
+    command = 'python ms_datasheet_multi.py '+directory+'/ --spectra_rt_range ' + spectra_rt_range + ' --tic_rt_range ' + tic_rt_range + ' --extension ' + fig_extension
+    if not savefig:
+        command+=' --display'
+    print(command)
+    
+    print('/n*****analyzing the following files:')
     print(all_files)
     for file_name in all_files:
-        print('analyzing: '+file_name+'...')
+        print('****analyzing: '+file_name+'...')
         ms_datasheet.plot_datapage(file_name, savefig=savefig, fig_extension=fig_extension, colors=cm.get_cmap(name='plasma'),
                       spectra_rt_range=spectra_rt_range, tic_rt_range=tic_rt_range)
-        print('completed: '+file_name)
+        print('****completed: '+file_name)
 
 if __name__ =='__main__':
     main()

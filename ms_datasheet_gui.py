@@ -1,7 +1,16 @@
+###################################
+#Tool to plot thermo raw files
+#to QC proteomics injections
+#Joey Davis
+#jhdavislab.com
+#jhdavis@mit.edu
+###################################
 from matplotlib import cm
 from gooey import GooeyParser
 from gooey import Gooey
 from ms_datasheet import plot_datapage
+
+__VERSION__="0.1.0"
 
 @Gooey
 def main():
@@ -25,7 +34,7 @@ def main():
     tic_rt_range = vars(args)['tic_rt_range']
     print('****generating datasheet for file: ' +file_name+'....****\n')
     print('****to do the same from the commandline, run the following:')
-    command = 'python ms_datasheet.py '+file_name+' --spectra_rt_range ' + spectra_rt_range + ' --tic_rt_range' + tic_rt_range + ' --extension ' + fig_extension
+    command = 'python ms_datasheet.py '+file_name+' --spectra_rt_range ' + spectra_rt_range + ' --tic_rt_range ' + tic_rt_range + ' --extension ' + fig_extension
     if not savefig:
         command+=' --display'
     print(command)

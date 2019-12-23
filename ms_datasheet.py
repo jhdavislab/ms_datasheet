@@ -1,3 +1,10 @@
+###################################
+#Tool to plot thermo raw files
+#to QC proteomics injections
+#Joey Davis
+#jhdavislab.com
+#jhdavis@mit.edu
+###################################
 import pyextractMS
 from matplotlib import pylab as plt
 from matplotlib import rcParams
@@ -6,6 +13,8 @@ from matplotlib import cm
 from os import path
 import time
 import argparse
+
+__VERSION__="0.1.0"
 
 def set_style_single_inj():
     rcParams['axes.labelsize'] = 9
@@ -99,10 +108,11 @@ def main():
     fig_extension = vars(args)['extension']
     spectra_rt_range = vars(args)['spectra_rt_range']
     tic_rt_range = vars(args)['tic_rt_range']
-    
+
+    print('\n****generating datasheet for file: ' +file_name+'....****')
     plot_datapage(file_name, savefig=savefig, fig_extension=fig_extension, colors=cm.get_cmap(name='plasma'),
                   spectra_rt_range=spectra_rt_range, tic_rt_range=tic_rt_range)
-
+    print('****plotting complete')
 
 if __name__ =='__main__':
     main()

@@ -1,8 +1,16 @@
+###################################
+#Tool to plot thermo raw files
+#to QC proteomics injections
+#Joey Davis
+#jhdavislab.com
+#jhdavis@mit.edu
+###################################
 import ms_datasheet
 import glob
 from matplotlib import cm
 import argparse
 
+__VERSION__="0.1.0"
 
 if __name__ =='__main__':
     parser = argparse.ArgumentParser(description='Plot a single datasheet for a each raw file in a given directory. Requires "ms_datasheet", "pyextractMS", "MSFileReader", numpy, matplotlib')
