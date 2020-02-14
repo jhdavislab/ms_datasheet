@@ -21,13 +21,13 @@ def main():
                         help='just display the plot, but do not save it')
     parser.add_argument('--extension', default='.pdf', type=str,
                         help='string for figure filetype (e.g. .pdf, .png)')
-    parser.add_argument('--spectra_rt_range', default='1,120', type=str,
+    parser.add_argument('--spectra_rt_range', default='40,80', type=str,
                        help='RT range over which to calculate spectra histograms; format is start,end. e.g. --spectra_rt_range 1,120')
     parser.add_argument('--tic_rt_range', default='1,120', type=str,
                        help='RT range over which to plot tics; format is start,end. e.g. --tic_rt_range 1,120')
-    parser.add_argument('--include_irts', default=False, action='store_true',
-                       help='include XICs, MS1, MS2 spectra for standard iRT peptides at expected retention times. Default is to exclude this information.\
-do not sure this option unless you have included pierce iRT peptides in your sample')
+    parser.add_argument('--exclude_iRTs', default=False, action='store_true',
+                       help='exclude XICs, MS1, MS2 spectra for standard iRT peptides at expected retention times. Default is to include this information.\
+do not use this option unless you have not added pierce iRT peptides in your sample')
     args = parser.parse_args()
 
     file_name= vars(args)['file']
@@ -35,18 +35,18 @@ do not sure this option unless you have included pierce iRT peptides in your sam
     fig_extension = vars(args)['extension']
     spectra_rt_range = vars(args)['spectra_rt_range']
     tic_rt_range = vars(args)['tic_rt_range']
-    include_iRTs = vars(args)['include_irts']
+    exclude_iRTs = vars(args)['exclude_iRTs']
     
     print('****generating datasheet for file: ' +file_name+'....****\n')
     print('****to do the same from the commandline, run the following:')
     command = 'python ms_datasheet.py '+file_name+' --spectra_rt_range ' + spectra_rt_range + ' --tic_rt_range ' + tic_rt_range + ' --extension ' + fig_extension
     if not savefig:
         command+=' --display'
-    if include_iRTs:
-        command+=' --include_irts'
+    if exclude_iRTs:
+        command+=' --exclude_iRTs'
     print(command)
     plot_datapage(file_name, savefig=savefig, fig_extension=fig_extension, colors=cm.get_cmap(name='plasma'),
-                  spectra_rt_range=spectra_rt_range, tic_rt_range=tic_rt_range, include_iRTs=include_iRTs)
+                  spectra_rt_range=spectra_rt_range, tic_rt_range=tic_rt_range, exclude_iRTs=exclude_iRTs)
     print('****plotting complete')
 if __name__ =='__main__':
     main()
